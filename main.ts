@@ -31,7 +31,7 @@
 //     reversion itself must exceed 2.5x the round-trip cost. The two lanes
 //     are mutually exclusive by construction (trend needs close > EMA(180), bounce
 //     needs close < EMA(180)).
-//   SLICING: an entry fills in 3 equal slices over 3 bars (a slice is sent only
+//   SLICING: an entry fills in 5 equal slices over 5 bars (a slice is sent only
 //     while its lane's regime still holds and the close has not run >100 bps above
 //     the trigger close — never chase). An exit fills in 2 slices over 2 bars:
 //     half at the trigger, the rest on the next bar.
@@ -72,7 +72,8 @@ const COOLDOWN_BARS = 30;
 const MAX_SLIPPAGE_BPS = 100;
 
 // Slicing (impact cost ~ a^2/D, so n slices pay ~1/n of the whole order's impact).
-const ENTRY_SLICES = 3;
+// v3 experiment: ENTRY_SLICES 3 -> 5 (pure variable change; signal untouched).
+const ENTRY_SLICES = 5;
 const EXIT_SLICES = 2;
 const ENTRY_CHASE_CAP_BPS = 100; // abort an entry plan if close runs this far above its trigger
 
